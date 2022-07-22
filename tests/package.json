@@ -1,0 +1,20 @@
+{
+  "name": "tests",
+  "version": "0.0.1",
+  "description": "polkadotjs extension test",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test ./polkadot.test.ts",
+    "clone-repo": "git clone https://github.com/polkadot-js/extension",
+    "install-extension": "cd extension && yarn install && yarn build"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "path": "^0.12.7",
+    "playwright": "^1.23.4"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.23.4"
+  }
+}
