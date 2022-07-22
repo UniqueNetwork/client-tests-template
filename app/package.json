@@ -5,7 +5,8 @@
   "author": "Unique Network",
   "license": "Apache 2.0",
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "serve": "python3 -m http.server"
   },
   "engines": {
     "npm": ">=7.0.0",

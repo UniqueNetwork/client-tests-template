@@ -1,11 +1,22 @@
 const { ApiPromise, WsProvider } = require('@polkadot/api');
 const { web3Enable, web3Accounts, web3FromAddress } = require('@polkadot/extension-dapp');
 
+const sleep = async (time) => {
+  await new Promise((resolve) => {
+    setTimeout(() => resolve(), time);
+  });
+}
+
 const getAccounts = async () => {
-  const allInjected = await web3Enable('Example app');
-  if(!allInjected.length) {
-    return [];
+  const appName = 'Example app';
+  let allInjected = [];
+  for(let i = 2; i--;) {
+    allInjected = await web3Enable(appName);
+    if(allInjected.length) break;
+    await sleep(1000);
   }
+  if(!allInjected.length) return [];
+
   return await web3Accounts();
 }
 
