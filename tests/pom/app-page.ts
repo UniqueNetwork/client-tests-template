@@ -1,10 +1,13 @@
-import {Locator, Page} from "@playwright/test";
+import { Locator, Page } from '@playwright/test';
 
-export class ExamplePage {
+import { config } from '../config';
+
+export class AppPage {
   readonly page: Page;
   readonly selector: Locator;
   readonly transferButton: Locator;
   readonly reloadAccountButton: Locator;
+  readonly wsEndpointInput: Locator;
   readonly accountFromInput: Locator;
   readonly accountToInput: Locator;
   readonly amountInput: Locator;
@@ -13,15 +16,16 @@ export class ExamplePage {
   constructor(page: Page) {
     this.page = page;
     this.transferButton = page.locator('#transfer-balance');
-    this.reloadAccountButton = page.locator('#reload-accounts')
+    this.reloadAccountButton = page.locator('#reload-accounts');
+    this.wsEndpointInput = page.locator('#network');
     this.accountFromInput = page.locator('#account');
     this.accountToInput = page.locator('#receiver');
     this.amountInput = page.locator('#amount');
-    this.loader = page.locator('#loader')
+    this.loader = page.locator('#loader');
   }
 
   async navigate() {
-    await this.page.goto('http://localhost:8000');
+    await this.page.goto(config.appHost);
   }
 
   async reload() {
@@ -30,6 +34,10 @@ export class ExamplePage {
 
   async close() {
     await this.page.close();
+  }
+
+  async focus() {
+    await this.page.bringToFront();
   }
 
   async waitTransferButtonText(expectedText: string) {

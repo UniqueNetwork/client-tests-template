@@ -1,20 +1,19 @@
 {
-  "name": "tests",
+  "name": "app-tests",
   "version": "0.0.1",
-  "description": "polkadotjs extension test",
-  "main": "index.js",
+  "description": "Test app with polkadotjs extension test",
+  "author": "Unique Network",
+  "license": "Apache 2.0",
   "scripts": {
-    "test": "npx playwright test ./polkadot.test.ts",
-    "clone-repo": "git clone https://github.com/polkadot-js/extension",
-    "install-extension": "cd extension && yarn install && yarn build"
+    "test": "npx playwright test ./app.test.ts",
+    "install-extension": "cd extension && yarn install && yarn build",
+    "init-extension": "git clone https://github.com/polkadot-js/extension && npm run install-extension",
+    "update-extension": "cd extension && git pull && npm run install-extension"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
-    "path": "^0.12.7",
-    "playwright": "^1.23.4"
+    "playwright": "1.23.4"
   },
   "devDependencies": {
-    "@playwright/test": "^1.23.4"
+    "@playwright/test": "1.23.4"
   }
 }
