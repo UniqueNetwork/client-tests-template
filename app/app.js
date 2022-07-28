@@ -10,7 +10,7 @@ const sleep = async (time) => {
 const getAccounts = async () => {
   const appName = 'Example app';
   let allInjected = [];
-  for(let i = 2; i--;) {
+  for(let i = 5; i--;) {
     allInjected = await web3Enable(appName);
     if(allInjected.length) break;
     await sleep(1000);
