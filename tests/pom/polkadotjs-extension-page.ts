@@ -28,7 +28,7 @@ export class PolkadotjsExtensionPage {
     this.nameInput = page.locator('//label[text()="A descriptive name for your account"]/../input');
     this.passwordInput = page.locator('//label[text()="A new password for this account"]/../input');
     this.repeatPasswordInput = page.locator('//label[text()="Repeat password for verification"]/../input');
-    this.polkadotExtensionCard = page.locator('#detailsButton');
+    this.polkadotExtensionCard = page.locator('#detailsButton').nth(1);
     this.selectAllCheckbox = page.locator('Select all');
   }
 

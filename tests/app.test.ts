@@ -1,10 +1,14 @@
+// @ts-ignore
 import path from 'path';
 
 import { chromium, test } from '@playwright/test';
 import { AppPage, PolkadotjsExtensionPage } from './pom';
 import { config } from './config';
+import {MetamaskPage} from "./pom/metamask-page";
+import {MetamaskExtensionPage} from "./pom/metamask-extension-page";
 
-const extensionPath = path.join(__dirname, 'extension', 'packages', 'extension', 'build');
+const polkadotExtensionPath = path.join(__dirname, 'extensions', 'polkadot-ext');
+//const metamaskExtensionPath = path.join(__dirname, 'extensions', 'metamask-ext');
 
 const polkaAccount = {
   mnemonic: config.accountSeed,
@@ -17,7 +21,11 @@ const baseUiTest = test.extend({
     const launchOptions = {
       devtools: false,
       headless: false,
-      args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`]
+      args: [
+        `--disable-extensions-except=${polkadotExtensionPath},`,
+        `--load-extension=${polkadotExtensionPath}` ,
+        //`--load-extension=${metamaskExtensionPath}`
+      ]
     };
     const context = await chromium.launchPersistentContext('', launchOptions);
     await use(context);
@@ -25,7 +33,7 @@ const baseUiTest = test.extend({
 });
 
 baseUiTest.describe('App test', () => {
-  baseUiTest('Test transfer token with polkadot extension', async ({context}) => {
+  baseUiTest.skip('Test transfer token with polkadot extension', async ({context}) => {
     const appPage = new AppPage(await context.newPage());
     await appPage.navigate();
     if (!await appPage.loader.isVisible()) {
@@ -59,4 +67,16 @@ baseUiTest.describe('App test', () => {
     await appPage.waitTransferButtonText('Pending...');
     await appPage.waitTransferButtonText('Transfer balance');
   });
+
+  baseUiTest('Metamask test', async ({context}) => {
+    const metamaskPage = new MetamaskPage(await context.newPage());
+    await metamaskPage.navigate();
+    await metamaskPage.connect(config.wsEndpoint);
+
+    const extensionPage = await new MetamaskExtensionPage(await context.newPage());
+    await extensionPage.firstOpen();
+
+    await extensionPage.connectAccountByExtension(polkaAccount.mnemonic, polkaAccount.password, polkaAccount.name);
+
+  })
 });
