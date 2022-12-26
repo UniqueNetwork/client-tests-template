@@ -14,3 +14,7 @@
     ```shell
     npm run serve
     ```
+    **NOTE:** for running the app on Windows OS use the command below instead `npm run serve`
+    ```shell
+    python -m http.server --bind localhost
+    ```

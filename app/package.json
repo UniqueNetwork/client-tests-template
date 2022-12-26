@@ -1,6 +1,6 @@
 {
   "name": "example-app",
-  "description": "Example application with polkadot",
+  "description": "Example application with polkadot and metamask extensions",
   "version": "0.0.1",
   "author": "Unique Network",
   "license": "Apache 2.0",
