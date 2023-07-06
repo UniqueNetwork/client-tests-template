@@ -1,10 +1,11 @@
+// @ts-ignore
 import path from 'path';
 
 import { chromium, test } from '@playwright/test';
 import { AppPage, PolkadotjsExtensionPage } from './pom';
 import { config } from './config';
 
-const extensionPath = path.join(__dirname, 'extension', 'packages', 'extension', 'build');
+const polkadotExtensionPath = path.join(__dirname, 'extensions', 'polkadot-ext', 'packages', 'extension', 'build');
 
 const polkaAccount = {
   mnemonic: config.accountSeed,
@@ -17,7 +18,10 @@ const baseUiTest = test.extend({
     const launchOptions = {
       devtools: false,
       headless: false,
-      args: [`--disable-extensions-except=${extensionPath}`, `--load-extension=${extensionPath}`]
+      args: [
+        `--disable-extensions-except=${polkadotExtensionPath}`,
+        `--load-extension=${polkadotExtensionPath}` ,
+      ]
     };
     const context = await chromium.launchPersistentContext('', launchOptions);
     await use(context);
@@ -59,4 +63,5 @@ baseUiTest.describe('App test', () => {
     await appPage.waitTransferButtonText('Pending...');
     await appPage.waitTransferButtonText('Transfer balance');
   });
+
 });

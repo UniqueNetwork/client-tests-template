@@ -6,12 +6,16 @@
   "license": "Apache 2.0",
   "scripts": {
     "test": "npx playwright test ./app.test.ts",
-    "install-extension": "cd extension && yarn install && yarn build",
-    "init-extension": "git clone https://github.com/polkadot-js/extension && npm run install-extension",
-    "update-extension": "cd extension && git pull && npm run install-extension"
+    "install-polkadot-extension": "cd extensions/polkadot-ext && yarn install && yarn build",
+    "init-polkadot-extension": "git clone https://github.com/polkadot-js/extension extensions/polkadot-ext && npm run install-polkadot-extension",
+    "update-polkadot-extension": "cd extensions/polkadot-ext && git pull && yarn install && yarn build",
+    "init-metamask-extension": "mkdirp -p extensions/metamask-ext/ && cd extensions/metamask-ext && nwget https://github.com/MetaMask/metamask-extension/releases/download/v10.23.1/metamask-chrome-10.23.1.zip -O metamask.zip && extract-zip metamask.zip"
   },
   "dependencies": {
-    "playwright": "1.23.4"
+    "extract-zip": "^2.0.1",
+    "mkdirp": "1.0.4",
+    "playwright": "1.23.4",
+    "wget-improved": "3.3.1"
   },
   "devDependencies": {
     "@playwright/test": "1.23.4"

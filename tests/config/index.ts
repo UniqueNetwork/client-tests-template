@@ -1,5 +1,9 @@
-import globalConfig  from './global';
-// @ts-ignore
-import * as localConfig from './local';
+let conf = require('./global').default;
 
-export const config = localConfig ? { ...localConfig } : { ...globalConfig }
+try {
+    const localConf = require('./local').default;
+    conf = {...conf, ...localConf}
+}
+catch (e) {}
+
+export const config = conf;
